@@ -2,6 +2,7 @@ package ac.ncl.advancedjava.model;
 
 public class OptionModel {
     private String option;
+    private String description;
     private boolean selected;
     private boolean isCorrect;
 
@@ -29,7 +30,15 @@ public class OptionModel {
         isCorrect = correct;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String toString(){
-        return option;
+        return option + ": " + description;
     }
 }

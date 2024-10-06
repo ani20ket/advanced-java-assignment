@@ -5,13 +5,13 @@ import java.util.List;
 public class QuestionModel {
     private String question;
     private List<OptionModel> options;
-    private List<String> correctAnswer;
+    private String correctAnswer;
 
-    public List<String> getCorrectAnswer() {
+    public String getCorrectAnswer() {
         return correctAnswer;
     }
 
-    public void setCorrectAnswer(List<String> correctAnswer) {
+    public void setCorrectAnswer(String correctAnswer) {
         this.correctAnswer = correctAnswer;
     }
 
