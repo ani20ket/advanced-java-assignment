@@ -8,11 +8,34 @@ public class Statistics extends Student {
     private int noOfRevisions;
 
 
-    public Statistics(String name, int age, LocalDate birthDate) {
-        super(name, age, birthDate);
+    public Statistics(Student student) {
+        super(student.getName(), student.getAge(), student.getBirthDate());
+        this.setFinalVerdict(FinalVerdict.TBD);
     }
 
+    public FinalVerdict getFinalVerdict() {
+        return finalVerdict;
+    }
 
+    public void setFinalVerdict(FinalVerdict finalVerdict) {
+        this.finalVerdict = finalVerdict;
+    }
+
+    public int getNoOfAttempts() {
+        return noOfAttempts;
+    }
+
+    public void setNoOfAttempts(int noOfAttempts) {
+        this.noOfAttempts = noOfAttempts;
+    }
+
+    public int getNoOfRevisions() {
+        return noOfRevisions;
+    }
+
+    public void setNoOfRevisions(int noOfRevisions) {
+        this.noOfRevisions = noOfRevisions;
+    }
 
     public enum FinalVerdict{
         PASS, FAIL, TBD;
