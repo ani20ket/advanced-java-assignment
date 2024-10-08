@@ -7,6 +7,7 @@ public class StatisticsGenerator {
 
     /**
      * generates statistics for a student after they take general/revision quiz
+     *
      * @param student
      * @return statistics
      */
@@ -15,16 +16,17 @@ public class StatisticsGenerator {
         int noOfAttempts = statistics.getNoOfAttempts();
         int noOfRevisions = statistics.getNoOfRevisions();
         noOfAttempts++;
-        if(isRevision){
+        if (isRevision) {
             noOfRevisions++;
         }
-        if(score < 0.4){
+        if (score < 0.4) {
             statistics.setFinalVerdict(Statistics.FinalVerdict.FAIL);
-        }else{
+        } else {
             statistics.setFinalVerdict(Statistics.FinalVerdict.PASS);
         }
         statistics.setNoOfAttempts(noOfAttempts);
         statistics.setNoOfRevisions(noOfRevisions);
+        statistics.setFinalScoreOutOfTen(score * 10);
         // Save to DB
         return statistics;
     }

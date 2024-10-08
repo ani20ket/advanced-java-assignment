@@ -19,6 +19,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
 
     /**
      * Student takes quiz and passes answers and question paper to this method
+     *
      * @param student
      * @param questions
      * @param answers
@@ -26,35 +27,36 @@ public abstract class AbstractQuizGenerator implements Quiz {
      */
     public double takeQuiz(Student student, List<QuestionModel> questions, List<AnswerModel> answers) {
         double correctAnswers = 0;
-        for(QuestionModel question : questions) {
+        for (QuestionModel question : questions) {
             Optional<AnswerModel> answerModelOptional = answers.stream().filter(answer ->
-                    answer.getQuestionNo() == (questions.indexOf(question)+1)).findFirst();
-            if(answerModelOptional.isPresent()){
+                    answer.getQuestionNo() == (questions.indexOf(question) + 1)).findFirst();
+            if (answerModelOptional.isPresent()) {
                 AnswerModel answerModel = answerModelOptional.get();
                 boolean isCorrect;
-                if(question.getCorrectAnswer().contains(",")){
+                if (question.getCorrectAnswer().contains(",")) {
                     isCorrect = evaluateQuestionWithOptions(question, answerModel);
-                }else{
+                } else {
                     isCorrect = evaluateFreeResponseQuestion(question, answerModel);
                 }
-                if(isCorrect){
+                if (isCorrect) {
                     correctAnswers++;
                 }
             }
         }
-        return correctAnswers/questions.size();
+        return correctAnswers / questions.size();
     }
 
     /**
      * evaluates questions accepting answer as a free text
+     *
      * @param question
      * @param answerModel
-     * @return  correct/incorrect
+     * @return correct/incorrect
      */
     private boolean evaluateFreeResponseQuestion(QuestionModel question, AnswerModel answerModel) {
         List<String> freeTextAnswer = Arrays.stream(answerModel.getAnswer().trim().split(" ")).toList();
         StringBuilder stringBuilder = new StringBuilder();
-        for(String answer : freeTextAnswer){
+        for (String answer : freeTextAnswer) {
             stringBuilder.append(answer).append(" ");
         }
         String answerWithoutSpaces = stringBuilder.toString().trim();
@@ -63,6 +65,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
 
     /**
      * evaluates questions accepting answer as Multiple Choice
+     *
      * @param question
      * @param answerModel
      * @return if all options selected are correct or not
@@ -70,8 +73,8 @@ public abstract class AbstractQuizGenerator implements Quiz {
     private boolean evaluateQuestionWithOptions(QuestionModel question, AnswerModel answerModel) {
         List<String> options = Arrays.stream(answerModel.getAnswer().split(",")).toList();
         List<String> correctAnswers = Arrays.stream(question.getCorrectAnswer().split(",")).toList();
-        for(String option : options){
-            if(!correctAnswers.contains(option)){
+        for (String option : options) {
+            if (!correctAnswers.contains(option)) {
                 return false;
             }
         }

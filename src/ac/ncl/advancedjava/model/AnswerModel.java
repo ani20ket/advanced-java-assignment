@@ -20,7 +20,7 @@ public class AnswerModel {
         this.answer = answer;
     }
 
-    public String toString(){
-        return questionNo+" : "+answer;
+    public String toString() {
+        return questionNo + " : " + answer;
     }
 }

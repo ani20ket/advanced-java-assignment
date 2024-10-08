@@ -11,11 +11,12 @@ import java.util.Random;
 /**
  * inherits AbstractQuizGenerator for takeQuiz method which is common between general and revision quiz
  */
-public class Revision extends AbstractQuizGenerator{
+public class Revision extends AbstractQuizGenerator {
 
     /**
      * generates a revision quiz through the question bank, shuffles the database response and returns only number of questions
      * for testing purposes, only a temporary utility is created. to be replaced by DB call
+     *
      * @param noOfQuestions
      * @return shuffled sublist of Question Bank
      */

@@ -1,7 +1,6 @@
 package ac.ncl.advancedjava.util;
 
 import ac.ncl.advancedjava.model.QuestionModel;
-import jdk.jshell.execution.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,21 +10,24 @@ import java.util.List;
  */
 public final class UtilitiesForTesting {
 
-    private UtilitiesForTesting() {}
+    private UtilitiesForTesting() {
+    }
 
     /**
      * generates a List of Question objects using generalQuestions.json file
+     *
      * @return List of questions
      */
-    public static List<QuestionModel> getGeneralQuestions(){
+    public static List<QuestionModel> getGeneralQuestions() {
         return new ArrayList<>();
     }
 
     /**
      * generates a List of Question objects using revisionQuestions.json file
+     *
      * @return List of questions
      */
-    public static List<QuestionModel> getRevisionQuestions(){
+    public static List<QuestionModel> getRevisionQuestions() {
         return new ArrayList<>();
     }
 }

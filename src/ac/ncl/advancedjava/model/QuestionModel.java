@@ -31,9 +31,9 @@ public class QuestionModel {
         this.options = options;
     }
 
-    public String toString(){
+    public String toString() {
         StringBuilder questionObject = new StringBuilder(question + "\n");
-        if(options != null){
+        if (options != null) {
             for (OptionModel option : options) {
                 questionObject.append(option).append("\n");
             }
@@ -42,7 +42,7 @@ public class QuestionModel {
     }
 
     public boolean equals(Object obj) {
-        if(obj instanceof QuestionModel){
+        if (obj instanceof QuestionModel) {
             QuestionModel questionModel = (QuestionModel) obj;
             return question.equals(questionModel.question);
         }

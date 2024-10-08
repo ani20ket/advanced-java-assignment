@@ -6,11 +6,20 @@ public class Statistics extends Student {
     private FinalVerdict finalVerdict;
     private int noOfAttempts;
     private int noOfRevisions;
+    private double finalScoreOutOfTen;
 
 
     public Statistics(Student student) {
         super(student.getName(), student.getAge(), student.getBirthDate());
         this.setFinalVerdict(FinalVerdict.TBD);
+    }
+
+    public double getFinalScoreOutOfTen() {
+        return finalScoreOutOfTen;
+    }
+
+    public void setFinalScoreOutOfTen(double finalScoreOutOfTen) {
+        this.finalScoreOutOfTen = finalScoreOutOfTen;
     }
 
     public FinalVerdict getFinalVerdict() {
@@ -37,7 +46,7 @@ public class Statistics extends Student {
         this.noOfRevisions = noOfRevisions;
     }
 
-    public enum FinalVerdict{
+    public enum FinalVerdict {
         PASS, FAIL, TBD;
     }
 }

@@ -38,7 +38,7 @@ public class OptionModel {
         this.description = description;
     }
 
-    public String toString(){
+    public String toString() {
         return option + ": " + description;
     }
 }
