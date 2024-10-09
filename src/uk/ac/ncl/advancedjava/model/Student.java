@@ -1,4 +1,4 @@
-package ac.ncl.advancedjava.model;
+package uk.ac.ncl.advancedjava.model;
 
 import java.time.LocalDate;
 

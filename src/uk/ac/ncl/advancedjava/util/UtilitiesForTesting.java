@@ -1,6 +1,6 @@
-package ac.ncl.advancedjava.util;
+package uk.ac.ncl.advancedjava.util;
 
-import ac.ncl.advancedjava.model.QuestionModel;
+import uk.ac.ncl.advancedjava.model.QuestionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,7 @@ import java.util.List;
  */
 public final class UtilitiesForTesting {
 
-    private UtilitiesForTesting() {
-    }
+    private UtilitiesForTesting() {}
 
     /**
      * generates a List of Question objects using generalQuestions.json file

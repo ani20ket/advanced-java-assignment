@@ -1,7 +1,7 @@
-package ac.ncl.advancedjava.service;
+package uk.ac.ncl.advancedjava.service;
 
-import ac.ncl.advancedjava.model.Statistics;
-import ac.ncl.advancedjava.model.Student;
+import uk.ac.ncl.advancedjava.model.Statistics;
+import uk.ac.ncl.advancedjava.model.Student;
 
 public class StatisticsGenerator {
 

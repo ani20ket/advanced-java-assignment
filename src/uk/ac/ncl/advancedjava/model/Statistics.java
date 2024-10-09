@@ -1,6 +1,4 @@
-package ac.ncl.advancedjava.model;
-
-import java.time.LocalDate;
+package uk.ac.ncl.advancedjava.model;
 
 public class Statistics extends Student {
     private FinalVerdict finalVerdict;

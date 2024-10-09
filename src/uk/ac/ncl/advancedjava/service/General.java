@@ -1,9 +1,8 @@
-package ac.ncl.advancedjava.service;
+package uk.ac.ncl.advancedjava.service;
 
-import ac.ncl.advancedjava.model.QuestionModel;
-import ac.ncl.advancedjava.util.UtilitiesForTesting;
+import uk.ac.ncl.advancedjava.model.QuestionModel;
+import uk.ac.ncl.advancedjava.util.UtilitiesForTesting;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;

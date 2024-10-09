@@ -1,9 +1,9 @@
-package ac.ncl.advancedjava.service;
+package uk.ac.ncl.advancedjava.service;
 
-import ac.ncl.advancedjava.model.AnswerModel;
-import ac.ncl.advancedjava.model.QuestionModel;
-import ac.ncl.advancedjava.model.Quiz;
-import ac.ncl.advancedjava.model.Student;
+import uk.ac.ncl.advancedjava.model.AnswerModel;
+import uk.ac.ncl.advancedjava.model.QuestionModel;
+import uk.ac.ncl.advancedjava.model.Quiz;
+import uk.ac.ncl.advancedjava.model.Student;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +60,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
             stringBuilder.append(answer).append(" ");
         }
         String answerWithoutSpaces = stringBuilder.toString().trim();
-        return question.getCorrectAnswer().equals(answerWithoutSpaces);
+        return question.getCorrectAnswer().equalsIgnoreCase(answerWithoutSpaces);
     }
 
     /**

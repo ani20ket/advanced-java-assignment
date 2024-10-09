@@ -1,6 +1,6 @@
-package ac.ncl.advancedjava.unittests;
+package uk.ac.ncl.advancedjava.unittests;
 
-import ac.ncl.advancedjava.model.Student;
+import uk.ac.ncl.advancedjava.model.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

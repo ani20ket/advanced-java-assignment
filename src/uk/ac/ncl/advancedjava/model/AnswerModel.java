@@ -1,4 +1,4 @@
-package ac.ncl.advancedjava.model;
+package uk.ac.ncl.advancedjava.model;
 
 public class AnswerModel {
     private int questionNo;
