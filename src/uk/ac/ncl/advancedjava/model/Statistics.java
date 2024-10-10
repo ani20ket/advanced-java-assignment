@@ -45,6 +45,16 @@ public class Statistics extends Student {
     }
 
     public enum FinalVerdict {
-        PASS, FAIL, TBD;
+        PASS, FAIL, TBD, ATTEMPT_1_FAILED;
+    }
+
+    @Override
+    public String toString() {
+        String student = super.toString();
+        return student.concat("\n")
+                .concat("No. of tests appeared: "+ this.noOfAttempts).concat("\n")
+                .concat("No. of revision attempts: "+ this.noOfRevisions).concat("\n")
+                .concat("Final score out of 10: "+ this.finalScoreOutOfTen).concat("\n")
+                .concat("This student is "+ this.finalVerdict);
     }
 }

@@ -19,15 +19,18 @@ public class StatisticsGenerator {
         if (isRevision) {
             noOfRevisions++;
         }
-        if (score < 0.4) {
+        if (score < 0.4 && isRevision) {
             statistics.setFinalVerdict(Statistics.FinalVerdict.FAIL);
-        } else {
+        } else if (score < 0.4) {
+            statistics.setFinalVerdict(Statistics.FinalVerdict.ATTEMPT_1_FAILED);
+        } else{
             statistics.setFinalVerdict(Statistics.FinalVerdict.PASS);
         }
         statistics.setNoOfAttempts(noOfAttempts);
         statistics.setNoOfRevisions(noOfRevisions);
         statistics.setFinalScoreOutOfTen(score * 10);
         // Save to DB
+        System.out.println(statistics);
         return statistics;
     }
 }

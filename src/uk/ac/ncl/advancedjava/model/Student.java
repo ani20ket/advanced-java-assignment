@@ -8,10 +8,11 @@ public class Student {
     private LocalDate birthDate;
     private int id;
 
-    public Student(String name, int age, LocalDate birthDate) {
+    public Student(String name, int age, LocalDate birthDate, int id) {
         this.name = name;
         this.age = age;
         this.birthDate = birthDate;
+        this.id = id;
     }
 
     public String toString() {

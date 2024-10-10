@@ -1,13 +1,8 @@
 package uk.ac.ncl.advancedjava.service;
 
-import uk.ac.ncl.advancedjava.model.AnswerModel;
-import uk.ac.ncl.advancedjava.model.QuestionModel;
-import uk.ac.ncl.advancedjava.model.Quiz;
-import uk.ac.ncl.advancedjava.model.Student;
+import uk.ac.ncl.advancedjava.model.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 /**
@@ -15,6 +10,16 @@ import java.util.Optional;
  * Inheritors - General.java and Revision.java
  */
 public abstract class AbstractQuizGenerator implements Quiz {
+
+
+    public static Quiz getInstance(String quiz) {
+        if (quiz.equals("GENERAL")) {
+            return new General();
+        } else {
+            return new Revision();
+        }
+    }
+
 
 
     /**
@@ -25,7 +30,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
      * @param answers
      * @return score between 0 and 1
      */
-    public double takeQuiz(Student student, List<QuestionModel> questions, List<AnswerModel> answers) {
+    public Statistics takeQuiz(Student student, List<QuestionModel> questions, List<AnswerModel> answers) {
         double correctAnswers = 0;
         for (QuestionModel question : questions) {
             Optional<AnswerModel> answerModelOptional = answers.stream().filter(answer ->
@@ -43,7 +48,9 @@ public abstract class AbstractQuizGenerator implements Quiz {
                 }
             }
         }
-        return correctAnswers / questions.size();
+        double score = correctAnswers / questions.size();
+        StatisticsGenerator statisticsGenerator = new StatisticsGenerator();
+        return statisticsGenerator.generateStatistics(student, score, this instanceof Revision);
     }
 
     /**
@@ -71,7 +78,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
      * @return if all options selected are correct or not
      */
     private boolean evaluateQuestionWithOptions(QuestionModel question, AnswerModel answerModel) {
-        List<String> options = Arrays.stream(answerModel.getAnswer().split(",")).toList();
+        List<String> options = Arrays.stream(answerModel.getAnswer().toLowerCase().split(",")).toList();
         List<String> correctAnswers = Arrays.stream(question.getCorrectAnswer().split(",")).toList();
         for (String option : options) {
             if (!correctAnswers.contains(option)) {
@@ -79,5 +86,11 @@ public abstract class AbstractQuizGenerator implements Quiz {
             }
         }
         return true;
+    }
+
+    public void displayQuestionPaper(List<QuestionModel> questions) {
+        for(QuestionModel question : questions) {
+            System.out.println((questions.indexOf(question) + 1) + ": " + question.toString());
+        }
     }
 }

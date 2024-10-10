@@ -1,16 +1,25 @@
 package uk.ac.ncl.advancedjava.model;
 
 public class OptionModel {
-    private String option;
+    private char option;
     private String description;
     private boolean isCorrect;
 
-    public String getOption() {
+    public char getOption() {
         return option;
     }
 
-    public void setOption(String option) {
+    public void setOption(char option) {
         this.option = option;
+    }
+
+    public static OptionModel valueOf(String option) {
+        OptionModel optionModel = new OptionModel();
+        String[] options = option.split("\\|");
+        optionModel.option = options[0].charAt(0);
+        optionModel.description = options[1];
+        optionModel.isCorrect = Boolean.parseBoolean(options[2]);
+        return optionModel;
     }
 
     public boolean isCorrect() {
