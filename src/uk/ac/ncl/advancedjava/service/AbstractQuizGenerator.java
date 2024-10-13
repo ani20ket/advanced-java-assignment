@@ -2,7 +2,9 @@ package uk.ac.ncl.advancedjava.service;
 
 import uk.ac.ncl.advancedjava.model.*;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -30,7 +32,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
      * @param answers
      * @return score between 0 and 1
      */
-    public Statistics takeQuiz(Student student, List<QuestionModel> questions, List<AnswerModel> answers) {
+    public Statistics takeQuiz(Student student, List<QuestionModel> questions, List<AnswerModel> answers, Statistics statistics) {
         double correctAnswers = 0;
         for (QuestionModel question : questions) {
             Optional<AnswerModel> answerModelOptional = answers.stream().filter(answer ->
@@ -38,10 +40,10 @@ public abstract class AbstractQuizGenerator implements Quiz {
             if (answerModelOptional.isPresent()) {
                 AnswerModel answerModel = answerModelOptional.get();
                 boolean isCorrect;
-                if (question.getCorrectAnswer().contains(",")) {
-                    isCorrect = evaluateQuestionWithOptions(question, answerModel);
-                } else {
+                if (question.getCorrectAnswer() != null) {
                     isCorrect = evaluateFreeResponseQuestion(question, answerModel);
+                } else {
+                    isCorrect = evaluateQuestionWithOptions(question, answerModel);
                 }
                 if (isCorrect) {
                     correctAnswers++;
@@ -50,7 +52,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
         }
         double score = correctAnswers / questions.size();
         StatisticsGenerator statisticsGenerator = new StatisticsGenerator();
-        return statisticsGenerator.generateStatistics(student, score, this instanceof Revision);
+        return statisticsGenerator.generateStatistics(student, score, this instanceof Revision, statistics);
     }
 
     /**
@@ -79,9 +81,12 @@ public abstract class AbstractQuizGenerator implements Quiz {
      */
     private boolean evaluateQuestionWithOptions(QuestionModel question, AnswerModel answerModel) {
         List<String> options = Arrays.stream(answerModel.getAnswer().toLowerCase().split(",")).toList();
-        List<String> correctAnswers = Arrays.stream(question.getCorrectAnswer().split(",")).toList();
-        for (String option : options) {
-            if (!correctAnswers.contains(option)) {
+        List<OptionModel> optionModelList = question.getOptions();
+        for(String option : options) {
+            Optional<OptionModel> optionalOptionModel = optionModelList.stream().filter(op -> option.equalsIgnoreCase(String.valueOf(op.getOption()))).findFirst();
+            if(optionalOptionModel.isEmpty()) {
+                return false;
+            }else if(!optionalOptionModel.get().isCorrect()){
                 return false;
             }
         }

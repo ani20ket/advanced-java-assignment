@@ -9,10 +9,6 @@ public class OptionModel {
         return option;
     }
 
-    public void setOption(char option) {
-        this.option = option;
-    }
-
     public static OptionModel valueOf(String option) {
         OptionModel optionModel = new OptionModel();
         String[] options = option.split("\\|");
@@ -24,18 +20,6 @@ public class OptionModel {
 
     public boolean isCorrect() {
         return isCorrect;
-    }
-
-    public void setCorrect(boolean correct) {
-        isCorrect = correct;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String toString() {

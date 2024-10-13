@@ -15,10 +15,6 @@ public class QuestionModel {
         this.correctAnswer = correctAnswer;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
     public void setQuestion(String question) {
         this.question = question;
     }

@@ -8,7 +8,7 @@ public class Statistics extends Student {
 
 
     public Statistics(Student student) {
-        super(student.getName(), student.getAge(), student.getBirthDate());
+        super(student.getName(), student.getAge(), student.getBirthDate(), student.getId());
         this.setFinalVerdict(FinalVerdict.TBD);
     }
 

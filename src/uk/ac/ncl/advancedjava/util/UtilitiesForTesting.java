@@ -33,7 +33,7 @@ public final class UtilitiesForTesting {
 
         List<String> multipleChoiceQuestions = new ArrayList<>(List.of("Which of the following is NOT a primitive data type?", "Which method is used to start a thread in Java?", "Which of these access modifiers makes a member accessible only within its own class?", "Which of these is used to handle exceptions in Java?", "Which of the following are wrapper classes for primitive types?", "What is the default value of a boolean variable?", "Which of the following statements is correct about the finally block?", "What does the continue statement do in a loop?", "Which keyword is used to create an object in Java?", "Which of the following are reserved keywords in Java?"));
         List<List<String>> multipleChoiceAnswers = new ArrayList<>(List.of(List.of("a|char|false", "b|String|true", "c|int|false", "d|boolean|false"),
-                List.of("a|run()|false", "b|start()|false", "c|init()|false", "d|execute()|false"),
+                List.of("a|run()|false", "b|start()|true", "c|init()|false", "d|execute()|false"),
                 List.of("a|public|false", "b|protected|false", "c|default|false", "d|private|true"),
                 List.of("a|try-catch|true", "b|if-else|false", "c|for|false", "d|switch|false"),
                 List.of("a|Integer|true", "b|float|true", "c|int|false", "d|Boolean|true"),
@@ -121,12 +121,11 @@ public final class UtilitiesForTesting {
             QuestionModel questionModel = new QuestionModel();
             questionModel.setQuestion(question);
             questionModel.setOptions(new ArrayList<>());
-            for (List<String> options : multipleChoiceAnswers) {
-                options.forEach(op -> {
-                    OptionModel optionModel = OptionModel.valueOf(op);
-                    questionModel.getOptions().add(optionModel);
-                });
-            }
+            List<String> options = multipleChoiceAnswers.get(multipleChoiceQuestions.indexOf(question));
+            options.forEach(op -> {
+                OptionModel optionModel = OptionModel.valueOf(op);
+                questionModel.getOptions().add(optionModel);
+            });
 
             questionModels.add(questionModel);
         }

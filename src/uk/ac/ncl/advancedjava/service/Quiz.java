@@ -8,6 +8,6 @@ import uk.ac.ncl.advancedjava.model.Student;
 import java.util.List;
 
 public interface Quiz {
-    Statistics takeQuiz(Student student, List<QuestionModel> questions, List<AnswerModel> answers);
+    Statistics takeQuiz(Student student, List<QuestionModel> questions, List<AnswerModel> answers, Statistics statistics);
     List<QuestionModel> generateQuiz(int noOfQuestions, Statistics statistics);
 }

@@ -11,8 +11,7 @@ public class StatisticsGenerator {
      * @param student
      * @return statistics
      */
-    public Statistics generateStatistics(Student student, double score, boolean isRevision) {
-        Statistics statistics = new Statistics(student);
+    public Statistics generateStatistics(Student student, double score, boolean isRevision, Statistics statistics) {
         int noOfAttempts = statistics.getNoOfAttempts();
         int noOfRevisions = statistics.getNoOfRevisions();
         noOfAttempts++;
