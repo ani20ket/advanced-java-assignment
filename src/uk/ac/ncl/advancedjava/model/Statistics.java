@@ -1,10 +1,13 @@
 package uk.ac.ncl.advancedjava.model;
 
+import java.util.List;
+
 public class Statistics extends Student {
     private FinalVerdict finalVerdict;
     private int noOfAttempts;
     private int noOfRevisions;
     private double finalScoreOutOfTen;
+    private List<QuestionModel> attemptedQuestions;
 
 
     public Statistics(Student student) {
@@ -46,6 +49,14 @@ public class Statistics extends Student {
 
     public enum FinalVerdict {
         PASS, FAIL, TBD, ATTEMPT_1_FAILED;
+    }
+
+    public List<QuestionModel> getAttemptedQuestions() {
+        return attemptedQuestions;
+    }
+
+    public void setAttemptedQuestions(List<QuestionModel> attemptedQuestions) {
+        this.attemptedQuestions = attemptedQuestions;
     }
 
     @Override

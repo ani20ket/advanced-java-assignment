@@ -4,6 +4,7 @@ import uk.ac.ncl.advancedjava.model.QuestionModel;
 import uk.ac.ncl.advancedjava.model.Statistics;
 import uk.ac.ncl.advancedjava.util.UtilitiesForTesting;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -14,7 +15,8 @@ import java.util.Random;
 final class Revision extends AbstractQuizGenerator {
 
     private boolean isStudentEligible(Statistics statistics) {
-        return Statistics.FinalVerdict.ATTEMPT_1_FAILED == statistics.getFinalVerdict();
+        return Statistics.FinalVerdict.TBD == statistics.getFinalVerdict()
+                || Statistics.FinalVerdict.ATTEMPT_1_FAILED == statistics.getFinalVerdict();
     }
 
     /**
@@ -22,6 +24,7 @@ final class Revision extends AbstractQuizGenerator {
      * for testing purposes, only a temporary utility is created. to be replaced by DB call
      *
      * @param noOfQuestions must be between 1 and 10
+     * @param statistics
      * @return shuffled sublist of Question Bank
      */
     public List<QuestionModel> generateQuiz(int noOfQuestions, Statistics statistics) {
@@ -32,7 +35,23 @@ final class Revision extends AbstractQuizGenerator {
             }
             List<QuestionModel> totalQuestions = UtilitiesForTesting.getRevisionQuestions();
             Collections.shuffle(totalQuestions, new Random());
-            return totalQuestions.subList(0, noOfQuestions);
+            List<QuestionModel> generalQuestions = new ArrayList<>();
+            List<QuestionModel> attemptedQuestions = statistics.getAttemptedQuestions();
+            if(attemptedQuestions == null || attemptedQuestions.isEmpty()){
+                return totalQuestions.subList(0, noOfQuestions);
+            }
+            while(generalQuestions.size() < noOfQuestions) {
+                if(totalQuestions.isEmpty()){
+                    throw new IllegalStateException("Maximum attempts reached");
+                }
+                if(attemptedQuestions.contains(totalQuestions.getFirst())){
+                    totalQuestions.removeFirst();
+                }else{
+                    generalQuestions.add(totalQuestions.getFirst());
+                    totalQuestions.removeFirst();
+                }
+            }
+            return generalQuestions;
         }else{
             throw new IllegalArgumentException("No revision eligible");
         }

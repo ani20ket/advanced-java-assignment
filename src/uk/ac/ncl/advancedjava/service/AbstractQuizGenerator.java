@@ -52,7 +52,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
         }
         double score = correctAnswers / questions.size();
         StatisticsGenerator statisticsGenerator = new StatisticsGenerator();
-        return statisticsGenerator.generateStatistics(student, score, this instanceof Revision, statistics);
+        return statisticsGenerator.generateStatistics(score, this instanceof Revision, statistics, questions);
     }
 
     /**
