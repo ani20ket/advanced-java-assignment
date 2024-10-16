@@ -8,12 +8,18 @@ import java.util.Optional;
 
 
 /**
- * This class contains methods for taking quiz which evaluates the student and returns the score between 0 and 1 in double format
+ * This class contains methods for taking quiz which evaluates the student and returns the generated statistics for that student
  * Inheritors - General.java and Revision.java
  */
 public abstract class AbstractQuizGenerator implements Quiz {
 
 
+    /**
+     * returns the instance of test (either general or revision)
+     *
+     * @param quiz
+     * @return
+     */
     public static Quiz getInstance(String quiz) {
         if (quiz.equals("GENERAL")) {
             return new General();
@@ -30,6 +36,7 @@ public abstract class AbstractQuizGenerator implements Quiz {
      * @param student
      * @param questions
      * @param answers
+     * @param statistics
      * @return score between 0 and 1
      */
     public Statistics takeQuiz(Student student, List<QuestionModel> questions, List<AnswerModel> answers, Statistics statistics) {

@@ -24,6 +24,7 @@ final class General extends AbstractQuizGenerator {
      * for testing purposes, only a temporary utility is created. to be replaced by DB call
      *
      * @param noOfQuestions must be between 1 and 10
+     * @param statistics
      * @return shuffled sublist of question bank
      */
     public List<QuestionModel> generateQuiz(int noOfQuestions, Statistics statistics) {
