@@ -20,7 +20,6 @@ public class StatisticsGenerator {
     public Statistics generateStatistics(double score, boolean isRevision, Statistics statistics, List<QuestionModel> attemptedQuestions) {
         int noOfAttempts = statistics.getNoOfAttempts();
         int noOfRevisions = statistics.getNoOfRevisions();
-        noOfAttempts++;
         if (isRevision) {
             noOfRevisions++;
         }else{
@@ -32,10 +31,11 @@ public class StatisticsGenerator {
                 statistics.setFinalVerdict(Statistics.FinalVerdict.PASS);
             }
             statistics.setFinalScoreOutOfTen(score * 10);
+            noOfAttempts++;
         }
         statistics.setNoOfAttempts(noOfAttempts);
         statistics.setNoOfRevisions(noOfRevisions);
-        statistics.setAttemptedQuestions(attemptedQuestions);
+        statistics.getAttemptedQuestions().addAll(attemptedQuestions);
         // Save to DB
         System.out.println(statistics);
         return statistics;

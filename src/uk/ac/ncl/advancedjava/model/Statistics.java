@@ -1,5 +1,6 @@
 package uk.ac.ncl.advancedjava.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Statistics extends Student {
@@ -12,6 +13,7 @@ public class Statistics extends Student {
 
     public Statistics(Student student) {
         super(student.getName(), student.getAge(), student.getBirthDate(), student.getId());
+        this.attemptedQuestions = new ArrayList<>();
         this.setFinalVerdict(FinalVerdict.TBD);
     }
 
@@ -53,10 +55,6 @@ public class Statistics extends Student {
 
     public List<QuestionModel> getAttemptedQuestions() {
         return attemptedQuestions;
-    }
-
-    public void setAttemptedQuestions(List<QuestionModel> attemptedQuestions) {
-        this.attemptedQuestions = attemptedQuestions;
     }
 
     @Override

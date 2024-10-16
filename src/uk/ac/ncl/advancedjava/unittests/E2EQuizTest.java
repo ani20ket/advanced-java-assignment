@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class QuizTest {
+public class E2EQuizTest {
 
     private Student firstStudent;
     private Student secondStudent;
@@ -114,7 +114,7 @@ public class QuizTest {
     }
 
     @Test
-    public void generalQuizOneFailureSecondPass() {
+    public void generalQuizOneFailureRevision1Attempt() {
         List<QuestionModel> generalQuestionPaper = generalQuiz.generateQuiz(10, firstStudentStatistics);
         List<AnswerModel> answerModels = answerQuestionsIncorrect(generalQuestionPaper);
         generalQuestionPaper.forEach(System.out::println);
@@ -134,25 +134,39 @@ public class QuizTest {
         revisionQuestionPaper.forEach(System.out::println);
         revisionAnswerModels.forEach(System.out::println);
         firstStudentStatistics = revisionQuiz.takeQuiz(firstStudent, revisionQuestionPaper, revisionAnswerModels, firstStudentStatistics);
-        assertEquals(2, firstStudentStatistics.getNoOfAttempts());
+        assertEquals(1, firstStudentStatistics.getNoOfAttempts());
         assertEquals(1, firstStudentStatistics.getNoOfRevisions());
         assertEquals("First Student", firstStudentStatistics.getName());
         assertEquals(22, firstStudentStatistics.getAge());
         assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
         assertEquals(1, firstStudentStatistics.getId());
-        assertEquals(10, firstStudentStatistics.getFinalScoreOutOfTen());
-        assertEquals(Statistics.FinalVerdict.PASS, firstStudentStatistics.getFinalVerdict());
+        assertEquals(0, firstStudentStatistics.getFinalScoreOutOfTen());
+        assertEquals(Statistics.FinalVerdict.ATTEMPT_1_FAILED, firstStudentStatistics.getFinalVerdict());
     }
 
     @Test
     public void generalQuizBothAttemptsFAIL() {
+        List<QuestionModel> revisionQuestionPaper = revisionQuiz.generateQuiz(10, firstStudentStatistics);
+        List<AnswerModel> revisionAnswerModels = answerQuestionsCorrectly(revisionQuestionPaper);
+        revisionQuestionPaper.forEach(System.out::println);
+        revisionAnswerModels.forEach(System.out::println);
+        firstStudentStatistics = revisionQuiz.takeQuiz(firstStudent, revisionQuestionPaper, revisionAnswerModels, firstStudentStatistics);
+        assertEquals(0, firstStudentStatistics.getNoOfAttempts());
+        assertEquals(1, firstStudentStatistics.getNoOfRevisions());
+        assertEquals("First Student", firstStudentStatistics.getName());
+        assertEquals(22, firstStudentStatistics.getAge());
+        assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
+        assertEquals(1, firstStudentStatistics.getId());
+        assertEquals(0, firstStudentStatistics.getFinalScoreOutOfTen());
+        assertEquals(Statistics.FinalVerdict.TBD, firstStudentStatistics.getFinalVerdict());
+
         List<QuestionModel> generalQuestionPaper = generalQuiz.generateQuiz(10, firstStudentStatistics);
         List<AnswerModel> answerModels = answerQuestionsIncorrect(generalQuestionPaper);
         generalQuestionPaper.forEach(System.out::println);
         answerModels.forEach(System.out::println);
         firstStudentStatistics = generalQuiz.takeQuiz(firstStudent, generalQuestionPaper, answerModels, firstStudentStatistics);
         assertEquals(1, firstStudentStatistics.getNoOfAttempts());
-        assertEquals(0, firstStudentStatistics.getNoOfRevisions());
+        assertEquals(1, firstStudentStatistics.getNoOfRevisions());
         assertEquals("First Student", firstStudentStatistics.getName());
         assertEquals(22, firstStudentStatistics.getAge());
         assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
@@ -160,19 +174,92 @@ public class QuizTest {
         assertEquals(0, firstStudentStatistics.getFinalScoreOutOfTen());
         assertEquals(Statistics.FinalVerdict.ATTEMPT_1_FAILED, firstStudentStatistics.getFinalVerdict());
 
-        List<QuestionModel> revisionQuestionPaper = revisionQuiz.generateQuiz(10, firstStudentStatistics);
-        List<AnswerModel> revisionAnswerModels = answerQuestionsIncorrect(revisionQuestionPaper);
-        revisionQuestionPaper.forEach(System.out::println);
-        revisionAnswerModels.forEach(System.out::println);
-        firstStudentStatistics = revisionQuiz.takeQuiz(firstStudent, revisionQuestionPaper, revisionAnswerModels, firstStudentStatistics);
+        List<QuestionModel> revisionQuestionPaper2 = revisionQuiz.generateQuiz(10, firstStudentStatistics);
+        List<AnswerModel> revisionAnswerModels2 = answerQuestionsCorrectly(revisionQuestionPaper2);
+        revisionQuestionPaper2.forEach(System.out::println);
+        revisionAnswerModels2.forEach(System.out::println);
+        firstStudentStatistics = revisionQuiz.takeQuiz(firstStudent, revisionQuestionPaper2, revisionAnswerModels2, firstStudentStatistics);
+        assertEquals(1, firstStudentStatistics.getNoOfAttempts());
+        assertEquals(2, firstStudentStatistics.getNoOfRevisions());
+        assertEquals("First Student", firstStudentStatistics.getName());
+        assertEquals(22, firstStudentStatistics.getAge());
+        assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
+        assertEquals(1, firstStudentStatistics.getId());
+        assertEquals(0, firstStudentStatistics.getFinalScoreOutOfTen());
+        assertEquals(Statistics.FinalVerdict.ATTEMPT_1_FAILED, firstStudentStatistics.getFinalVerdict());
+
+        List<QuestionModel> generalQuestionPaper2 = generalQuiz.generateQuiz(10, firstStudentStatistics);
+        List<AnswerModel> answerModels2 = answerQuestionsIncorrect(generalQuestionPaper2);
+        generalQuestionPaper2.forEach(System.out::println);
+        answerModels2.forEach(System.out::println);
+        firstStudentStatistics = generalQuiz.takeQuiz(firstStudent, generalQuestionPaper2, answerModels2, firstStudentStatistics);
         assertEquals(2, firstStudentStatistics.getNoOfAttempts());
-        assertEquals(1, firstStudentStatistics.getNoOfRevisions());
+        assertEquals(2, firstStudentStatistics.getNoOfRevisions());
         assertEquals("First Student", firstStudentStatistics.getName());
         assertEquals(22, firstStudentStatistics.getAge());
         assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
         assertEquals(1, firstStudentStatistics.getId());
         assertEquals(0, firstStudentStatistics.getFinalScoreOutOfTen());
         assertEquals(Statistics.FinalVerdict.FAIL, firstStudentStatistics.getFinalVerdict());
+    }
+
+    @Test
+    public void generalQuizFirstFailSecondPass() {
+        List<QuestionModel> revisionQuestionPaper = revisionQuiz.generateQuiz(10, firstStudentStatistics);
+        List<AnswerModel> revisionAnswerModels = answerQuestionsCorrectly(revisionQuestionPaper);
+        revisionQuestionPaper.forEach(System.out::println);
+        revisionAnswerModels.forEach(System.out::println);
+        firstStudentStatistics = revisionQuiz.takeQuiz(firstStudent, revisionQuestionPaper, revisionAnswerModels, firstStudentStatistics);
+        assertEquals(0, firstStudentStatistics.getNoOfAttempts());
+        assertEquals(1, firstStudentStatistics.getNoOfRevisions());
+        assertEquals("First Student", firstStudentStatistics.getName());
+        assertEquals(22, firstStudentStatistics.getAge());
+        assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
+        assertEquals(1, firstStudentStatistics.getId());
+        assertEquals(0, firstStudentStatistics.getFinalScoreOutOfTen());
+        assertEquals(Statistics.FinalVerdict.TBD, firstStudentStatistics.getFinalVerdict());
+
+        List<QuestionModel> generalQuestionPaper = generalQuiz.generateQuiz(10, firstStudentStatistics);
+        List<AnswerModel> answerModels = answerQuestionsIncorrect(generalQuestionPaper);
+        generalQuestionPaper.forEach(System.out::println);
+        answerModels.forEach(System.out::println);
+        firstStudentStatistics = generalQuiz.takeQuiz(firstStudent, generalQuestionPaper, answerModels, firstStudentStatistics);
+        assertEquals(1, firstStudentStatistics.getNoOfAttempts());
+        assertEquals(1, firstStudentStatistics.getNoOfRevisions());
+        assertEquals("First Student", firstStudentStatistics.getName());
+        assertEquals(22, firstStudentStatistics.getAge());
+        assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
+        assertEquals(1, firstStudentStatistics.getId());
+        assertEquals(0, firstStudentStatistics.getFinalScoreOutOfTen());
+        assertEquals(Statistics.FinalVerdict.ATTEMPT_1_FAILED, firstStudentStatistics.getFinalVerdict());
+
+        List<QuestionModel> revisionQuestionPaper2 = revisionQuiz.generateQuiz(10, firstStudentStatistics);
+        List<AnswerModel> revisionAnswerModels2 = answerQuestionsCorrectly(revisionQuestionPaper2);
+        revisionQuestionPaper2.forEach(System.out::println);
+        revisionAnswerModels2.forEach(System.out::println);
+        firstStudentStatistics = revisionQuiz.takeQuiz(firstStudent, revisionQuestionPaper2, revisionAnswerModels2, firstStudentStatistics);
+        assertEquals(1, firstStudentStatistics.getNoOfAttempts());
+        assertEquals(2, firstStudentStatistics.getNoOfRevisions());
+        assertEquals("First Student", firstStudentStatistics.getName());
+        assertEquals(22, firstStudentStatistics.getAge());
+        assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
+        assertEquals(1, firstStudentStatistics.getId());
+        assertEquals(0, firstStudentStatistics.getFinalScoreOutOfTen());
+        assertEquals(Statistics.FinalVerdict.ATTEMPT_1_FAILED, firstStudentStatistics.getFinalVerdict());
+
+        List<QuestionModel> generalQuestionPaper2 = generalQuiz.generateQuiz(10, firstStudentStatistics);
+        List<AnswerModel> answerModels2 = answerQuestionsCorrectly(generalQuestionPaper2);
+        generalQuestionPaper2.forEach(System.out::println);
+        answerModels2.forEach(System.out::println);
+        firstStudentStatistics = generalQuiz.takeQuiz(firstStudent, generalQuestionPaper2, answerModels2, firstStudentStatistics);
+        assertEquals(2, firstStudentStatistics.getNoOfAttempts());
+        assertEquals(2, firstStudentStatistics.getNoOfRevisions());
+        assertEquals("First Student", firstStudentStatistics.getName());
+        assertEquals(22, firstStudentStatistics.getAge());
+        assertEquals(LocalDate.of(2002, Month.NOVEMBER, 20), firstStudentStatistics.getBirthDate());
+        assertEquals(1, firstStudentStatistics.getId());
+        assertEquals(10, firstStudentStatistics.getFinalScoreOutOfTen());
+        assertEquals(Statistics.FinalVerdict.PASS, firstStudentStatistics.getFinalVerdict());
     }
 
 }

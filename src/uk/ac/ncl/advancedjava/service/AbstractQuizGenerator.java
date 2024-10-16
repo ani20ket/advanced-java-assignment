@@ -93,9 +93,4 @@ public abstract class AbstractQuizGenerator implements Quiz {
         return true;
     }
 
-    public void displayQuestionPaper(List<QuestionModel> questions) {
-        for(QuestionModel question : questions) {
-            System.out.println((questions.indexOf(question) + 1) + ": " + question.toString());
-        }
-    }
 }
